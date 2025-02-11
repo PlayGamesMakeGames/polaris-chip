@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css } from 'lit'; //called a bare-import, instead of ../node_modules/.....(hover over lit to see path) just grab what we need
 
 /**
  * Now it's your turn. Here's what we need to try and do:
@@ -6,6 +6,7 @@ import { LitElement, html, css } from 'lit';
  * 2. Get your CSS rescoped as needed to work here
  */
 
+//webcomponent MyCard Class
 export class MyCard extends LitElement {
 
   static get tag() {
@@ -14,17 +15,24 @@ export class MyCard extends LitElement {
 
   constructor() {
     super();
+    //can't put html in these b/c we defined these as strings in the properties unless we use the <slot> tag (called slot or light dom)
     this.title = "MOST EPIC WATERPARK (GONE WET💦!!)!";
     this.imageSrc = "https://www.crosstimbersgazette.com/crosstimbersgazette/wp-content/uploads/2018/03/epic-waters-slides.jpg";
     this.imageAlt = "Epic Waterslide Picture";
     this.desc = "This waterpark is so very coolio! They have like at least 5 slides just in this one picture! Come along and find out how wild this waterpark can really be (please)!!!!";
     this.detailLink = "https://hax.psu.edu";
+    this.fancy = false; //if set true here it cannot be set to false due to reflect
   }
 
   static get styles() {
     return css`
       :host {
         display: block;
+      }
+      //fancy bool
+      :host([fancy]) .card{ //brackets around fancy are attribute based selection
+        background-color: #606060;
+        //border-radius: 2px;
       }
 
       .editbutton{
@@ -73,13 +81,15 @@ export class MyCard extends LitElement {
       padding: 8px;
     }
   }
-  .fancy{
+  //fancy background color toggle
+  .fancyBG{
     background-color: #c78c4a;
   }
   .title{
     color: #102090;
     text-align: center;
-    
+    font-weight: bold;
+    font-style: italic;
   }
   .detail, 
     .detial:hover{
@@ -130,7 +140,6 @@ export class MyCard extends LitElement {
 
   duplicateCard(){
     //copy card
-
   if(this.shadowRoot.querySelectorAll(".card").length < 10){ //or change .card to querySelector #cardlist.children.length BUT this is bad bc there could be other children that aren't cards
     const newCard = this.shadowRoot.querySelector('#cardlist .card').cloneNode(true);
  this.shadowRoot.querySelector("#cardlist").appendChild(newCard);
@@ -151,11 +160,11 @@ export class MyCard extends LitElement {
   let i = 0;
   for(i = 0; i < bgColorList.length; i++){
     let bgColor = bgColorList[i];
-  if (bgColor.classList.contains('fancy')) {
-      bgColor.classList.remove('fancy');    
+  if (bgColor.classList.contains('fancyBG')) {
+      bgColor.classList.remove('fancyBG');    
     }
     else {
-      bgColor.classList.add('fancy');      
+      bgColor.classList.add('fancyBG');      
     }
   }
   }
@@ -168,18 +177,30 @@ export class MyCard extends LitElement {
     cardList[cardList.length-1].remove();
     }
   }
+
+  toggleFancyBool(){
+    //const button = document.querySelector("toggleFancy");
+    const card = document.querySelector("my-card");
+    card.fancy = !card.fancy;
+  }
+
   render() {
     return html`<button class="editbutton" id="duplicate" @click=${this.duplicateCard}>Copy Card</button>
     <button class="editbutton" id="namechange" @click=${this.changeTitle}>Change Title</button>
     <button class="editbutton" id="changeimg" @click=${this.changeImage}>Change Image</button>
     <button class="editbutton" id="changebg" @click=${this.changeBg}>Change Background Color</button>
     <button class="editbutton" id="delete" @click=${this.deleteCard}>Delete Card</button>
+    <button class="editbutton" id="toggleFancy" @click=${this.toggleFancyBool}>Toggle Fancy</button>
     
     <div id="cardlist">
     <div class="card"> 
-      <h1 class="title"><u><em>${this.title}</em></u></h1>
+      <h1 class="title">
+        <slot name="titleSlot">${this.title}</slot>
+      </h1>
       <img class="thumbnail" src=${this.imageSrc} alt=${this.imageAlt}>
-    <p class="desc">${this.desc}</p>
+    <p class="desc">
+      <slot name="descSlot">${this.desc}</slot>
+    </p>
       <a href="${this.detailLink}">
         <button class="detail">Details</button>
       </a>
@@ -187,17 +208,18 @@ export class MyCard extends LitElement {
     </div>`;
   }
 
-  
-
+  //allows updating/overriding default values in html when instantiating webcomponent
   static get properties() {
     return {
       title: { type: String },
       imageSrc: { type: String },
       imageAlt: {type: String },
       desc: { type: String },
-      detailLink: { type: String}
+      detailLink: { type: String},
+      fancy: { type: Boolean, reflect: true} //bool, but reflect is critical
     };
   }
 }
 
+//define MyCard tag <my-card> (saved as a str in the class) as the class MyCard
 globalThis.customElements.define(MyCard.tag, MyCard);
