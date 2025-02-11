@@ -29,10 +29,9 @@ export class MyCard extends LitElement {
       :host {
         display: block;
       }
-      //fancy bool
-      :host([fancy]) .card{ //brackets around fancy are attribute based selection
+      :host([fancy]) .card{
         background-color: #606060;
-        //border-radius: 2px;
+        border-radius: 16px;
       }
 
       .editbutton{
@@ -40,6 +39,7 @@ export class MyCard extends LitElement {
     margin: 2px 2px 2px 2px;
     padding: 5px;
     border: 3px navy dashed;
+    border-radius: 4px;
     background-color: #808080;
     color: #00c8de;
     -webkit-text-stroke: .1px #00a3b5;
@@ -81,15 +81,14 @@ export class MyCard extends LitElement {
       padding: 8px;
     }
   }
-  //fancy background color toggle
-  .fancyBG{
+  .fancy{
     background-color: #c78c4a;
   }
   .title{
     color: #102090;
     text-align: center;
-    font-weight: bold;
-    font-style: italic;
+    font-style: bold;
+    font-style: underline;
   }
   .detail, 
     .detial:hover{
@@ -160,11 +159,11 @@ export class MyCard extends LitElement {
   let i = 0;
   for(i = 0; i < bgColorList.length; i++){
     let bgColor = bgColorList[i];
-  if (bgColor.classList.contains('fancyBG')) {
-      bgColor.classList.remove('fancyBG');    
+  if (bgColor.classList.contains('fancy')) {
+      bgColor.classList.remove('fancy');    
     }
     else {
-      bgColor.classList.add('fancyBG');      
+      bgColor.classList.add('fancy');      
     }
   }
   }
@@ -178,6 +177,7 @@ export class MyCard extends LitElement {
     }
   }
 
+  //TODO: update this to only update its specific card 
   toggleFancyBool(){
     //const button = document.querySelector("toggleFancy");
     const card = document.querySelector("my-card");
