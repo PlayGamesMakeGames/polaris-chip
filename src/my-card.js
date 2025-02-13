@@ -36,7 +36,7 @@ export class MyCard extends LitElement {
         color: white;
       }
 
-      .editbutton{
+    .editbutton{
     font-size: 20px;
     margin: 2px 2px 2px 2px;
     padding: 5px;
@@ -64,6 +64,8 @@ export class MyCard extends LitElement {
         transform: scale(0.5);
         background-color: #DDDDDD;
         width: 700px;
+        max-width: 800px;
+        max-height: 1280px;
         border: 3px solid;
         border-color: navy;
         border-width: 5px;
@@ -75,6 +77,8 @@ export class MyCard extends LitElement {
       transform: scale(1);
       background-color: #DDDDDD;
       width: 700px;
+      max-width: 800px;
+      max-height: 1280px;
       border: 3px solid;
       border-color: navy;
       border-width: 5px;
@@ -91,7 +95,8 @@ export class MyCard extends LitElement {
     text-align: center;
     font-style: bold;
     font-style: underline;
-    overflow-wrap: break-word;
+    //overflow-wrap: break-word;
+    overflow: hidden;
     //word-wrap: break-word; alternative to overflow-wrap, not sure difference
   }
   .detail, 
@@ -201,13 +206,14 @@ export class MyCard extends LitElement {
 
 
   render() {
-    return html`<button class="editbutton" id="duplicate" @click=${this.duplicateCard}>Copy Card</button>
-    <button class="editbutton" id="namechange" @click=${this.changeTitle}>Change Title</button>
-    <button class="editbutton" id="changeimg" @click=${this.changeImage}>Change Image</button>
-    <button class="editbutton" id="changebg" @click=${this.changeBg}>Change Background Color</button>
-    <button class="editbutton" id="delete" @click=${this.deleteCard}>Delete Card</button>
-    <button class="editbutton" id="toggleFancy" @click=${this.toggleFancyBool}>Toggle Fancy</button>
-    
+    return html`
+    <!-- Buttons -->
+  <button class="editbutton" id="duplicate" @click=${this.duplicateCard}>Copy Card</button>
+  <button class="editbutton" id="namechange" @click=${this.changeTitle}>Change Title</button>
+  <button class="editbutton" id="changeimg" @click=${this.changeImage}>Change Image</button>
+  <button class="editbutton" id="changebg" @click=${this.changeBg}>Change Background Color</button>
+  <button class="editbutton" id="delete" @click=${this.deleteCard}>Delete Card</button>
+  <button class="editbutton" id="toggleFancy" @click=${this.toggleFancyBool}>Toggle Fancy</button>
     <div id="cardlist">
     <div class="card"> 
       <h1 class="title">

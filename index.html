@@ -26,6 +26,24 @@
       background-color: azure;
       padding: 50px;
     }
+    .editbutton{
+    font-size: 20px;
+    margin: 2px 2px 2px 2px;
+    padding: 5px;
+    border: 3px navy dashed;
+    border-radius: 4px;
+    background-color: #808080;
+    color: #00c8de;
+    -webkit-text-stroke: .1px #00a3b5;
+  }
+  .editbutton:hover{
+    border: 3px navy dashed;
+    background-color: #00c8de;
+    color: #808080;
+  }
+  .editbutton:active{
+    background-color: #00a8ce;
+  }
   </style>
   <title>polaris-chip / my-card</title>
 </head>
@@ -39,15 +57,18 @@
   <polaris-chip title="Grants and donations"></polaris-chip>
 
   <a href="https://psu.edu/" target="blank">PSU</a>
-
+  
+  
   <h1>my-card</h1>
+  
+  <!-- My cards -->
   <my-card fancy ></my-card>
   <my-card fancy
   title="DUNE 3!" 
   imageSrc="https://www.giantfreakinrobot.com/wp-content/uploads/2024/03/image.png" 
   desc="This movie is peak, if you thought Dune was a 7/10, Dune 2 a 9/10, Dune 3 is bout to blow your socks off" 
   detailLink="https://www.youtube.com/watch?v=Ww8EgKT_JBM">
-  <p slot="titleSlot">NEW Title <b>bolddddddd duneeeee</b> AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHHH ah</p>
+  <p slot="titleSlot">NEW Title <b>bolddddddd duneeeee</b> AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH ah</p>
   <p slot="descSlot"><strong>Dune IS Epiccccc</strong></slot></p><!-- this overrides desc where we can write in straight up html-->
   </my-card>
   <my-card fancy
