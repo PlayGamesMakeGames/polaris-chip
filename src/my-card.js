@@ -26,12 +26,14 @@ export class MyCard extends LitElement {
 
   static get styles() {
     return css`
+    //:host is least specific selector for the webcomponent
       :host {
         display: block;
       }
       :host([fancy]) .card{
         background-color: #606060;
         border-radius: 16px;
+        color: white;
       }
 
       .editbutton{
@@ -89,6 +91,8 @@ export class MyCard extends LitElement {
     text-align: center;
     font-style: bold;
     font-style: underline;
+    overflow-wrap: break-word;
+    //word-wrap: break-word; alternative to overflow-wrap, not sure difference
   }
   .detail, 
     .detial:hover{
@@ -184,6 +188,18 @@ export class MyCard extends LitElement {
     card.fancy = !card.fancy;
   }
 
+  //when desc is toggled, it turns fancy to the correct state (fancy = drop down open) (e can be anything, just a param)
+  openChanged(e) {
+    console.log(e.newState);
+    if (e.newState === "open") {
+      this.fancy = true;
+    }
+    else {
+      this.fancy = false;
+    }
+  }
+
+
   render() {
     return html`<button class="editbutton" id="duplicate" @click=${this.duplicateCard}>Copy Card</button>
     <button class="editbutton" id="namechange" @click=${this.changeTitle}>Change Title</button>
@@ -204,6 +220,17 @@ export class MyCard extends LitElement {
       <a href="${this.detailLink}">
         <button class="detail">Details</button>
       </a>
+      <!-- if fancy, auto open desc dropdown of card -->
+      <details ?open="${this.fancy}" @toggle="${this.openChanged}"> 
+        <summary>Description</summary>
+        <div>
+          <slot>${this.desc}</slot>
+          <a href="${this.detailLink}" target="blank">
+            <button class="editbutton">Link for more info</button>
+          </a>
+        </div>
+      </details>
+
     </div>
     </div>`;
   }
@@ -216,7 +243,7 @@ export class MyCard extends LitElement {
       imageAlt: {type: String },
       desc: { type: String },
       detailLink: { type: String},
-      fancy: { type: Boolean, reflect: true} //bool, but reflect is critical
+      fancy: { type: Boolean, reflect: true} //bool, but reflect is critical bc when val of fancy changes, it will be shown in the dom of the webpage, allows css selectors to be found
     };
   }
 }
