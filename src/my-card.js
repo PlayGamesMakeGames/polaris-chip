@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit'; //called a bare-import, instead of ../node_modules/.....(hover over lit to see path) just grab what we need
-
+import "@haxtheweb/meme-maker/meme-maker.js";
 /**
  * Now it's your turn. Here's what we need to try and do:
  * 1. Get you HTML from your card working in here 
@@ -28,7 +28,7 @@ export class MyCard extends LitElement {
     return css`
     //:host is least specific selector for the webcomponent
       :host {
-        display: block;
+        display: inline-block;
       }
       :host([fancy]) .card{
         background-color: #606060;
@@ -82,7 +82,7 @@ export class MyCard extends LitElement {
       border: 3px solid;
       border-color: navy;
       border-width: 5px;
-      display: block;
+      display: inline-block;
       margin: 10px;
       padding: 8px;
     }
@@ -101,7 +101,7 @@ export class MyCard extends LitElement {
   }
   .detail, 
     .detial:hover{
-      display: block;
+      display: inline-block;
       margin-right: auto;
       margin-left: auto;
       border-color: rgba(0,0,0,0);
@@ -132,7 +132,7 @@ export class MyCard extends LitElement {
       background-color: #115599;
       color: white;
       font-size: 30px;
-      display: block;
+      display: inline-block;
       margin-right: auto;
       margin-left: auto;
       text-decoration: none;
@@ -219,7 +219,7 @@ export class MyCard extends LitElement {
       <h1 class="title">
         <slot name="titleSlot">${this.title}</slot>
       </h1>
-      <img class="thumbnail" src=${this.imageSrc} alt=${this.imageAlt}>
+      <meme-maker class="thumbnail" image-url=${this.imageSrc} alt=${this.imageAlt} top-text="epicccc" bottom-text="memeeee"></meme-maker>
     <p class="desc">
       <slot name="descSlot">${this.desc}</slot>
     </p>
